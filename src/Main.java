@@ -10,11 +10,12 @@ public class Main {
                 2);
         Scanner input = new Scanner(System.in);
 
+        newDept.printDept();
         while (true) {
             System.out.printf(
                     "%n============"+
                     "%nEnter Options"+
-                    "%n1-Add New Lab"+
+                    "%n1-Create New Labs"+
                     "%n2-List Labs"+
                     "%n3-Exit"+
                     "%n->"
@@ -24,6 +25,7 @@ public class Main {
             switch (userInput) {
                 case 1:
                     newDept.initializeLabs();
+                    System.out.println("Lab Created");
                     break;
                 case 2:
 
