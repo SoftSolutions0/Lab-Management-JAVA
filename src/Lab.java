@@ -49,7 +49,7 @@ public class Lab {
         System.out.printf("%n=======" +
                 "%nLab-No: " + this.name +
                 "%nAttendant-Name: " + this.attendant.getName() +
-                "%nNo of Computers: "+ this.getComputers().length
+                "%nNo of Computers: " + this.getComputers().length
 
         );
     }
@@ -59,7 +59,7 @@ public class Lab {
         for (int i = 0; i < computers.length; i++) {
             if (computers[i] == null)
                 computers[i] = new personalComputer(
-                        "00"+i,
+                        "00" + i,
                         "Dell",
                         "Lenovo",
                         512,
@@ -71,11 +71,22 @@ public class Lab {
     }
 
 
-    public void printComputers(personalComputer[] computers){
-        for (int i = 0;i<computers.length;i++){
-            if(computers[i] != null){
+    public void printComputers(personalComputer[] computers) {
+        for (int i = 0; i < computers.length; i++) {
+            if (computers[i] != null) {
                 computers[i].printPC();
             }
         }
+    }
+
+    public boolean searchComputer(personalComputer[] computers, String computerID) {
+        boolean systemFound = false;
+        for (int i = 0; i < computers.length; i++) {
+            if (computers[i] != null && computers[i].getAssetID().equals(computerID)) {
+                systemFound = true;
+                break;
+            }
+        }
+        return systemFound;
     }
 }

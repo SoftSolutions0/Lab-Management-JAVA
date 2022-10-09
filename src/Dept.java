@@ -58,7 +58,7 @@ public class Dept {
                 labs[i] = new Lab("Lab-" + i, new Employee(userStringInput, 12, "Attendant"), userIntInput);
                 labs[i].initializeComputers();
                 break;
-            } else if(i == labs.length-1 && labs[i] != null){
+            } else if (i == labs.length - 1 && labs[i] != null) {
                 System.out.printf("%nDepartment Capacity Reached.%nLab not Created");
             }
         }
@@ -73,11 +73,9 @@ public class Dept {
                 this.labs[i].printLab();
 
 
-//              this.labs[i].printComputers(labs[i].getComputers());
-
             }
         }
-        if (labs[labs.length- labs.length] == null && labs[labs.length-1] ==null){
+        if (labs[0] == null && labs[labs.length - 1] == null) {
             System.out.println("No Lab Found.");
         }
 
@@ -85,21 +83,61 @@ public class Dept {
     }
 
 
+    public void removeLab(Lab[] labs) {
+
+        Scanner input = new Scanner(System.in);
+        System.out.printf("%nEnter Lab Number:%n->");
+        int userIntInput = input.nextInt();
+        String concat = "Lab-"+userIntInput;
+
+
+        for (int i = 0; i < labs.length; i++) {
+
+            if (labs[i] != null && this.labs[i].getName().equals(concat)) {
+                this.labs[i] = null;
+                System.out.printf("%nLab Removed.");
+                break;
+            }
+        }
+
+
+    }
+
 
     public void printLabComputers(Lab[] labs) {
 
         for (int i = 0; i < labs.length; i++) {
 
             if (labs[i] != null) {
-              this.labs[i].printLab();
+                this.labs[i].printLab();
 
-              System.out.printf("%nNo of Computers: "+ labs[i].getComputers().length);
+                System.out.printf("%nNo of Computers: " + labs[i].getComputers().length);
 
-              this.labs[i].printComputers(labs[i].getComputers());
+                this.labs[i].printComputers(labs[i].getComputers());
 
             }
         }
-        if (labs[labs.length- labs.length] == null && labs[labs.length-1] ==null){
+        if (labs[0] == null && labs[labs.length - 1] == null) {
+            System.out.println("No Lab Found.");
+        }
+
+
+    }
+
+
+    public void searchComputer(Lab[] labs) {
+
+        Scanner input = new Scanner(System.in);
+        System.out.printf("%nEnter PC-ID");
+        String inputPcID = input.nextLine();
+
+        for (int i = 0; i < labs.length; i++) {
+
+            if (labs[i] != null && this.labs[i].searchComputer(labs[i].getComputers(), inputPcID)) {
+                System.out.printf("%nComputer Found in Lab-%d", i);
+            }
+        }
+        if (labs[0] == null && labs[labs.length - 1] == null) {
             System.out.println("No Lab Found.");
         }
 

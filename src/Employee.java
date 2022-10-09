@@ -1,6 +1,6 @@
 public class Employee {
-    private String name;
     private final String designation;
+    private String name;
     private Integer age;
 
 
