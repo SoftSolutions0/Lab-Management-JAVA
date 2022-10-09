@@ -58,7 +58,7 @@ public class Lab {
         for (int i = 0; i < computers.length; i++) {
             if (computers[i] == null)
                 computers[i] = new personalComputer(
-                        "12345",
+                        "00"+i,
                         "Dell",
                         "Lenovo",
                         512,

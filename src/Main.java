@@ -15,7 +15,7 @@ public class Main {
             System.out.printf(
                     "%n============"+
                     "%nEnter Options"+
-                    "%n1-Create New Labs"+
+                    "%n1-Create New Lab"+
                     "%n2-List Labs"+
                     "%n3-Exit"+
                     "%n->"
@@ -25,7 +25,6 @@ public class Main {
             switch (userInput) {
                 case 1:
                     newDept.initializeLabs();
-                    System.out.println("Lab Created");
                     break;
                 case 2:
 
