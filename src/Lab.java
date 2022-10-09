@@ -47,8 +47,9 @@ public class Lab {
 
     public void printLab() {
         System.out.printf("%n=======" +
-                "%nLab-Name: " + this.name +
-                "%nAttendant-Name: " + this.attendant.getName()
+                "%nLab-No: " + this.name +
+                "%nAttendant-Name: " + this.attendant.getName() +
+                "%nNo of Computers: "+ this.getComputers().length
 
         );
     }

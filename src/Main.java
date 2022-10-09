@@ -17,7 +17,8 @@ public class Main {
                     "%nEnter Options"+
                     "%n1-Create New Lab"+
                     "%n2-List Labs"+
-                    "%n3-Exit"+
+                    "%n3-List Computers in Labs"+
+                    "%n4-Exit"+
                     "%n->"
             );
             int userInput = input.nextInt();
@@ -32,6 +33,9 @@ public class Main {
                     break;
 
                 case 3:
+                    newDept.printLabComputers(newDept.getLabs());
+                    break;
+                case 4:
                     System.exit(0);
                 default:
                     System.out.println("Invalid Input ");
