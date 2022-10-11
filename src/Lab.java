@@ -9,7 +9,7 @@ public class Lab {
         this.computers = new personalComputer[computers];
     }
 
-    public Lab(Lab l) {
+    public Lab(Lab l) { //Copy constructor
         this.name = l.name;
         this.attendant = l.attendant;
         this.computers = l.computers;
@@ -45,7 +45,7 @@ public class Lab {
         return new Lab(this);
     }
 
-    public void printLab() {
+    public void printLab() { //Print lab details
         System.out.printf("%n=======" +
                 "%nLab-No: " + this.name +
                 "%nAttendant-Name: " + this.attendant.getName() +
@@ -55,7 +55,7 @@ public class Lab {
     }
 
     public void initializeComputers() {
-
+        //Creates n no. of computers in lab
         for (int i = 0; i < computers.length; i++) {
             if (computers[i] == null)
                 computers[i] = new personalComputer(
@@ -71,7 +71,7 @@ public class Lab {
     }
 
 
-    public void printComputers(personalComputer[] computers) {
+    public void printComputers(personalComputer[] computers) { //Prints computer details
         for (int i = 0; i < computers.length; i++) {
             if (computers[i] != null) {
                 computers[i].printPC();
@@ -79,7 +79,7 @@ public class Lab {
         }
     }
 
-    public boolean searchComputer(personalComputer[] computers, String computerID) {
+    public boolean searchComputer(personalComputer[] computers, String computerID) { //Searches for computer ID
         boolean systemFound = false;
         for (int i = 0; i < computers.length; i++) {
             if (computers[i] != null && computers[i].getAssetID().equals(computerID)) {

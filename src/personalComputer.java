@@ -6,7 +6,7 @@ public class personalComputer {
     private int diskSize;
     private boolean GPU;
 
-    public personalComputer(personalComputer p) {
+    public personalComputer(personalComputer p) { //Copy constructor
         this.assetID = p.assetID;
         this.PCname = p.PCname;
         this.LCDName = p.LCDName;
@@ -78,7 +78,7 @@ public class personalComputer {
         return new personalComputer(this);
     }
 
-    public void printPC() {
+    public void printPC() { //Prints PC details
         System.out.printf("%n======" +
                 "%nPC-ID: " + this.assetID +
                 "%nPC-Name:" + this.PCname +

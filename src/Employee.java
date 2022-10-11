@@ -11,7 +11,7 @@ public class Employee {
 
     }
 
-    public Employee(Employee e) {
+    public Employee(Employee e) { //Copy constructor
         this.name = e.name;
         this.age = e.age;
         this.designation = e.designation;
