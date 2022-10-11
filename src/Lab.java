@@ -72,17 +72,17 @@ public class Lab {
 
 
     public void printComputers(personalComputer[] computers) { //Prints computer details
-        for (int i = 0; i < computers.length; i++) {
-            if (computers[i] != null) {
-                computers[i].printPC();
+        for (personalComputer computer : computers) {
+            if (computer != null) {
+                computer.printPC();
             }
         }
     }
 
     public boolean searchComputer(personalComputer[] computers, String computerID) { //Searches for computer ID
         boolean systemFound = false;
-        for (int i = 0; i < computers.length; i++) {
-            if (computers[i] != null && computers[i].getAssetID().equals(computerID)) {
+        for (personalComputer computer : computers) {
+            if (computer != null && computer.getAssetID().equals(computerID)) {
                 systemFound = true;
                 break;
             }
