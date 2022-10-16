@@ -1,4 +1,4 @@
-public class personalComputer {
+public class personalComputer{
     private String assetID;
     private String PCname;
     private String LCDName;

@@ -1,7 +1,14 @@
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+//        DataHandler labsFile = new DataHandler();
+//
+//        labsFile.writeFile("Ahmed", "hassan", 50);
+//       labsFile.readFile(5);
 
         //Creates Department with "Name","HOD","Labs-inCharge"
         Dept newDept = new Dept(
@@ -26,8 +33,10 @@ public class Main {
                             "%n2-List Labs" +
                             "%n3-List Computers in Labs" +
                             "%n4-Search Computer" +
-                            "%n5-Remove Lab" +
-                            "%n6-Exit" +
+                            "%n5-Read From Lab-File" +
+                            "%n6-Remove Lab" +
+                            "%n7-Remove Lab from File"+
+                            "%n8-Exit" +
                             "%n->"
             );
             int userInput = input.nextInt();
@@ -46,9 +55,15 @@ public class Main {
                     //Searches for computer
                         newDept.searchComputer(newDept.getLabs());
                 case 5 ->
-                    //Removes computer
-                        newDept.removeLab(newDept.getLabs());
+                    //Reads from Lab
+                    DataHandler.readLab();
                 case 6 ->
+                    //Removes Lab
+                        newDept.removeLab(newDept.getLabs());
+                case 7 ->
+                        //Removes Lab from file
+                        DataHandler.RUD(false,true,false,true);
+                case 8 ->
                     //Exits
                         System.exit(0);
                 default -> System.out.println("Invalid Input ");
@@ -60,7 +75,7 @@ public class Main {
     }
 
 
-    public static void listDepts(Dept[] Depts) { //Pending Function
+    public static  void listDepts(Dept[] Depts) { //Pending Function
         for (Dept dept : Depts) {
             if (dept != null) {
                 dept.printDept();

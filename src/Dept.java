@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Dept {
@@ -43,8 +44,7 @@ public class Dept {
     }
 
 
-    public void initializeLabs() {
-
+    public void initializeLabs() throws IOException {
         Scanner input = new Scanner(System.in);
         Scanner input2 = new Scanner(System.in);
         System.out.printf("%nEnter no of computers in the lab:%n->");
@@ -57,6 +57,8 @@ public class Dept {
             if (labs[i] == null) {
                 labs[i] = new Lab("Lab-" + i, new Employee(userStringInput, 12, "Attendant"), userIntInput);
                 labs[i].initializeComputers();
+                DataHandler.writeLab("Lab-"+i,userStringInput,userIntInput);
+
                 break;
             } else if (i == labs.length - 1 && labs[i] != null) {
                 System.out.printf("%nDepartment Capacity Reached.%nLab not Created");
