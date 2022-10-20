@@ -37,9 +37,9 @@ public class Dept {
     public void printDept() {
         System.out.printf("%n=======" +
                 "%nDepartment-Name: " + this.name +
-                "%nDepartment-HOD: " + this.HOD.getName() +
-                "%nLab-InCharge: " + this.labIncharge.getName() +
-                "%nDepartment Capacity: " + this.labs.length + "-Labs"
+                " | Department-HOD: " + this.HOD.getName() +
+                " | Lab-InCharge: " + this.labIncharge.getName() +
+                " | Department Capacity: " + this.labs.length + "-Labs"
         );
     }
 
@@ -55,8 +55,9 @@ public class Dept {
 
         for (int i = 0; i < labs.length; i++) {
             if (labs[i] == null) {
-                labs[i] = new Lab("Lab-" + i, new Employee(userStringInput, 12, "Attendant"), userIntInput);
+                labs[i] = new Lab("Lab-" + i, new Employee(userStringInput, 12, "Attendant"), userIntInput,1);
                 labs[i].initializeComputers();
+                labs[i].initializeSoftwares();
                 DataHandler.writeLab("Lab-"+i,userStringInput,userIntInput);
 
                 break;
@@ -68,11 +69,11 @@ public class Dept {
 
 
     public void printLabs(Lab[] labs) {
-
         for (int i = 0; i < labs.length; i++) {
 
             if (labs[i] != null) {
                 this.labs[i].printLab();
+                this.labs[i].printSoftwares(this.labs[i].getSoftwares());
 
 
             }
@@ -112,8 +113,7 @@ public class Dept {
 
             if (labs[i] != null) {
                 this.labs[i].printLab();
-
-                System.out.printf("%nNo of Computers: " + labs[i].getComputers().length);
+                this.labs[i].printSoftwares(labs[i].getSoftwares());
 
                 this.labs[i].printComputers(labs[i].getComputers());
 

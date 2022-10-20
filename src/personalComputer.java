@@ -81,11 +81,11 @@ public class personalComputer{
     public void printPC() { //Prints PC details
         System.out.printf("%n======" +
                 "%nPC-ID: " + this.assetID +
-                "%nPC-Name:" + this.PCname +
-                "%nLCD-Name: " + this.LCDName +
-                "%nRam-Size: " + this.ramSize +
-                "%nDisk-Size: " + this.diskSize +
-                "%nGPU: " + this.GPU
+                " | PC-Name:" + this.PCname +
+                " | LCD-Name: " + this.LCDName +
+                " | Ram-Size: " + this.ramSize +
+                " | Disk-Size: " + this.diskSize +
+                " | GPU: " + this.GPU
         );
     }
 

@@ -27,7 +27,7 @@ public class Main {
         //Loop for menu options
         while (true) {
             System.out.printf(
-                    "%n============" +
+                    "%n=======" +
                             "%nEnter Options" +
                             "%n1-Create New Lab" +
                             "%n2-List Labs" +

@@ -3,16 +3,20 @@ public class Lab {
     private Employee attendant;
     private personalComputer[] computers;
 
-    public Lab(String name, Employee attendant, int computers) {
+    private Software[] softwares;
+
+    public Lab(String name, Employee attendant, int computers, int softwares) {
         this.name = name;
         this.attendant = attendant;
         this.computers = new personalComputer[computers];
+        this.softwares = new Software[softwares];
     }
 
     public Lab(Lab l) { //Copy constructor
         this.name = l.name;
         this.attendant = l.attendant;
         this.computers = l.computers;
+        this.softwares = l.softwares;
 
     }
 
@@ -41,18 +45,45 @@ public class Lab {
         this.computers = computers;
     }
 
+    public Software[] getSoftwares() {
+        return softwares;
+    }
+
+    public void setSoftwares(Software[] softwares) {
+        this.softwares = softwares;
+    }
+
     public Object clone() {
         return new Lab(this);
     }
 
     public void printLab() { //Print lab details
-        System.out.printf("%n=======" +
+        System.out.printf("=====" +
                 "%nLab-No: " + this.name +
-                "%nAttendant-Name: " + this.attendant.getName() +
-                "%nNo of Computers: " + this.getComputers().length
+                " | Attendant-Name: " + this.attendant.getName() +
+                " | No of Computers: " + this.getComputers().length+
+                " | "
 
         );
     }
+
+    public void initializeSoftwares(){
+        for (int i =0;i<softwares.length;i++){
+            if(softwares[i] == null){
+                softwares[i] = new Software("Adobe", "Utility", "0.03");
+            }
+        }
+    }
+
+    public void printSoftwares(Software[] softwares ){
+        for(Software software: softwares){
+            if(software != null){
+                software.printSoftware();
+            }
+        }
+    }
+
+
 
     public void initializeComputers() {
         //Creates n no. of computers in lab
