@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -44,7 +47,8 @@ public class Dept {
     }
 
 
-    public void initializeLabs() throws IOException {
+    public void initializeLabs(){
+
         Scanner input = new Scanner(System.in);
         Scanner input2 = new Scanner(System.in);
         System.out.printf("%nEnter no of computers in the lab:%n->");
@@ -52,14 +56,12 @@ public class Dept {
         System.out.printf("Enter Name of Lab-Attendant:%n->");
         String userStringInput = input2.nextLine();
 
-
         for (int i = 0; i < labs.length; i++) {
             if (labs[i] == null) {
                 labs[i] = new Lab("Lab-" + i, new Employee(userStringInput, 12, "Attendant"), userIntInput,1);
+
                 labs[i].initializeComputers();
                 labs[i].initializeSoftwares();
-                DataHandler.writeLab("Lab-"+i,userStringInput,userIntInput);
-
                 break;
             } else if (i == labs.length - 1 && labs[i] != null) {
                 System.out.printf("%nDepartment Capacity Reached.%nLab not Created");
@@ -73,9 +75,6 @@ public class Dept {
 
             if (labs[i] != null) {
                 this.labs[i].printLab();
-                this.labs[i].printSoftwares(this.labs[i].getSoftwares());
-
-
             }
         }
         if (labs[0] == null && labs[labs.length - 1] == null) {
@@ -113,8 +112,6 @@ public class Dept {
 
             if (labs[i] != null) {
                 this.labs[i].printLab();
-                this.labs[i].printSoftwares(labs[i].getSoftwares());
-
                 this.labs[i].printComputers(labs[i].getComputers());
 
             }
@@ -145,6 +142,75 @@ public class Dept {
 
 
     }
+
+
+    public void loadLabs() throws IOException {
+        File LabFile = new File("files\\Labs.dat");
+        Scanner labReader = new Scanner(LabFile);
+        File EmployeeFile = new File("files\\Employees.dat");
+        Scanner employeeReader = new Scanner(EmployeeFile);
+
+        int counter = 0;
+
+        while(labReader.hasNextLine()){
+            boolean validity = true;
+            String labLine = labReader.nextLine();
+
+
+                String labName = labLine.split(",")[0];
+                String labAttendant = labLine.split(",")[1];
+                String labPcs = labLine.split(",")[2];
+                String labSoftware = labLine.split(",")[3];
+
+                Employee emp = new Employee(labAttendant, null, "Attendant");
+
+
+                    while(Integer.parseInt(labLine.substring(4, 5)) != counter) {
+                        counter++;
+                    }
+
+
+                    if (labs[counter] == null && Integer.parseInt(labLine.substring(4, 5)) == counter) {
+                        labs[counter] = new Lab(
+                                labName,
+                                emp,
+                                Integer.parseInt(labPcs),
+                                Integer.parseInt(labSoftware));
+
+                        labs[counter].loadComputers();
+                    }
+
+                    counter++;
+
+        }
+    }
+
+
+    public void saveData(Lab[] labs) throws IOException {
+        File labFile = new File("files\\Labs.dat");
+        File pcFile = new File("files\\Computers.dat");
+
+        FileWriter lw = new FileWriter(labFile);
+        FileWriter cw = new FileWriter(pcFile);
+        cw.write("");
+        cw.close();
+        for (int i = 0; i < labs.length; i++) {
+
+            if (labs[i] != null) {
+                lw.write(
+                        this.labs[i].getName()+","+
+                        this.labs[i].getAttendant().getName()+","+
+                        this.labs[i].getComputers().length+","+
+                        this.labs[i].getSoftwares().length+"\n"
+                );
+                this.labs[i].saveComputers(this.labs[i].getComputers());
+
+            }
+        }
+        lw.close();
+        System.out.println("Data Saved.");
+    }
+
 
 }
 

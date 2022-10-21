@@ -4,11 +4,7 @@ import java.util.logging.FileHandler;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
-//        DataHandler labsFile = new DataHandler();
-//
-//        labsFile.writeFile("Ahmed", "hassan", 50);
-//       labsFile.readFile(5);
+        boolean universalValue = true;
 
         //Creates Department with "Name","HOD","Labs-inCharge"
         Dept newDept = new Dept(
@@ -17,6 +13,8 @@ public class Main {
                 new Employee("Clara", 12, "inCharge"),
                 10
         );
+
+        newDept.loadLabs();
 
         //Creates input Object
         Scanner input = new Scanner(System.in);
@@ -27,46 +25,63 @@ public class Main {
         //Loop for menu options
         while (true) {
             System.out.printf(
-                    "%n=======" +
+                            "%n=======" +
                             "%nEnter Options" +
                             "%n1-Create New Lab" +
                             "%n2-List Labs" +
                             "%n3-List Computers in Labs" +
                             "%n4-Search Computer" +
-                            "%n5-Read From Lab-File" +
-                            "%n6-Remove Lab" +
-                            "%n7-Remove Lab from File"+
-                            "%n8-Exit" +
+                            "%n5-Remove Lab" +
+                            "%n6-Exit" +
                             "%n->"
             );
             int userInput = input.nextInt();
 
             switch (userInput) {
-                case 1 ->
+                case 1 :
                     //Create New Lab with n No. of Computers
-                        newDept.initializeLabs();
-                case 2 ->
+                    newDept.initializeLabs();
+                    universalValue = false;
+                    break;
+                case 2 :
                     //Prints Labs details of the department
-                        newDept.printLabs(newDept.getLabs());
-                case 3 ->
+                    newDept.printLabs(newDept.getLabs());
+                    break;
+                case 3 :
                     //Prints computers within no of labs
-                        newDept.printLabComputers(newDept.getLabs());
-                case 4 ->
+                    newDept.printLabComputers(newDept.getLabs());
+                    break;
+                case 4 :
                     //Searches for computer
-                        newDept.searchComputer(newDept.getLabs());
-                case 5 ->
-                    //Reads from Lab
-                    DataHandler.readLab();
-                case 6 ->
+                    newDept.searchComputer(newDept.getLabs());
+                    break;
+                case 5 :
                     //Removes Lab
-                        newDept.removeLab(newDept.getLabs());
-                case 7 ->
-                        //Removes Lab from file
-                        DataHandler.RUD(false,true,false,true);
-                case 8 ->
+                    newDept.removeLab(newDept.getLabs());
+                    universalValue = false;
+                    break;
+
+                case 6 :
                     //Exits
+                    if(!universalValue){
+                        System.out.printf("%nWould you like to save changes?%n1-Yes%n2-No%n->");
+                        int saveValue = input.nextInt();
+                        switch (saveValue){
+                            case 1:
+                                newDept.saveData(newDept.getLabs());
+                                break;
+
+                            case 2:
+                                break;
+
+                            default:
+                                System.out.println("Invalid Input");
+                        }
+                    }
+                    System.out.println("Exiting...");
                         System.exit(0);
-                default -> System.out.println("Invalid Input ");
+
+                default : System.out.println("Invalid Input ");
             }
 
         }
@@ -74,14 +89,6 @@ public class Main {
 
     }
 
-
-    public static  void listDepts(Dept[] Depts) { //Pending Function
-        for (Dept dept : Depts) {
-            if (dept != null) {
-                dept.printDept();
-            }
-        }
-    }
 
 
 }

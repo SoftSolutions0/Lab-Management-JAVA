@@ -1,9 +1,16 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Lab {
     private String name;
     private Employee attendant;
     private personalComputer[] computers;
 
     private Software[] softwares;
+
 
     public Lab(String name, Employee attendant, int computers, int softwares) {
         this.name = name;
@@ -58,11 +65,10 @@ public class Lab {
     }
 
     public void printLab() { //Print lab details
-        System.out.printf("=====" +
-                "%nLab-No: " + this.name +
+        System.out.printf(
+                "%nLab-Name: " + this.name +
                 " | Attendant-Name: " + this.attendant.getName() +
-                " | No of Computers: " + this.getComputers().length+
-                " | "
+                " | No of Computers: " + this.getComputers().length
 
         );
     }
@@ -88,7 +94,7 @@ public class Lab {
     public void initializeComputers() {
         //Creates n no. of computers in lab
         for (int i = 0; i < computers.length; i++) {
-            if (computers[i] == null)
+            if (computers[i] == null) {
                 computers[i] = new personalComputer(
                         "00" + i,
                         "Dell",
@@ -98,7 +104,44 @@ public class Lab {
                         true
 
                 );
+
+
+            }
         }
+    }
+
+    public void loadComputers() throws FileNotFoundException {
+        File computerFile =new File("files\\Computers.dat");
+        Scanner pcReader = new Scanner(computerFile);
+
+        int counter = 0;
+        while(pcReader.hasNextLine() && counter<computers.length){
+            String pcLine = pcReader.nextLine();
+
+            String labID = pcLine.split(",")[0];
+            String pcID = pcLine.split(",")[1];
+            String pcName = pcLine.split(",")[2];
+            String pcLCD = pcLine.split(",")[3];
+            String pcRam = pcLine.split(",")[4];
+            String pcDisk = pcLine.split(",")[5];
+            String pcGPU = pcLine.split(",")[6];
+            if(this.name.equals(labID)) {
+                computers[counter] = new personalComputer(
+                        pcID,
+                        pcName,
+                        pcLCD,
+                        Integer.parseInt(pcRam),
+                        Integer.parseInt(pcDisk),
+                        Boolean.parseBoolean(pcGPU));
+                counter++;
+            }
+
+
+
+
+        }
+
+
     }
 
 
@@ -119,5 +162,30 @@ public class Lab {
             }
         }
         return systemFound;
+    }
+
+
+    public void saveComputers(personalComputer[] computers) throws IOException {
+        File computerFile = new File("files\\Computers.dat");
+        FileWriter cw = new FileWriter(computerFile, true);
+
+        for (int i=0; i<computers.length;i++){
+
+            if(computers[i] != null){
+                cw.write(
+                        this.name+","+
+                                computers[i].getAssetID()+","+
+                                computers[i].getPCName()+","+
+                                computers[i].getLCDName()+","+
+                                computers[i].getRamSize()+","+
+                                computers[i].getDiskSize()+","+
+                                computers[i].isGPU()+"\n"
+                );
+            }
+
+        }
+        cw.close();
+
+
     }
 }
