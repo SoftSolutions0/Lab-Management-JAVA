@@ -63,7 +63,7 @@ public class Main {
                         break;
 
                     case 6:
-                        //Exits
+                        //Saves || Exits
                         if (!universalValue) {
                             System.out.printf("%nWould you like to save changes?%n1-Yes%n2-No%n->");
                             int saveValue = input.nextInt();

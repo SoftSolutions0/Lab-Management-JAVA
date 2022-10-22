@@ -55,6 +55,9 @@ public class Dept {
         int userIntInput = input.nextInt();
         System.out.printf("Enter Name of Lab-Attendant:%n->");
         String userStringInput = input2.nextLine();
+        if (userStringInput.contains(",")) {
+            userStringInput = userStringInput.replace(",","-");
+        }
 
         for (int i = 0; i < labs.length; i++) {
             if (labs[i] == null) {
