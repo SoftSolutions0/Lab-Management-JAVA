@@ -79,7 +79,7 @@ public class personalComputer{
     }
 
     public void printPC() { //Prints PC details
-        System.out.printf("%n======" +
+        System.out.printf(
                 "%nPC-ID: " + this.assetID +
                 " | PC-Name:" + this.PCname +
                 " | LCD-Name: " + this.LCDName +

@@ -107,10 +107,13 @@ public class Dept {
 
 
     public void printLabComputers(Lab[] labs) {
+        Scanner input = new Scanner(System.in);
+        System.out.printf("%nEnter Lab-Name%nLab-");
+        String inputLabName = "Lab-"+input.nextLine();
 
         for (int i = 0; i < labs.length; i++) {
 
-            if (labs[i] != null) {
+            if (labs[i] != null && labs[i].getName().equals(inputLabName)) {
                 this.labs[i].printLab();
                 this.labs[i].printComputers(labs[i].getComputers());
 
@@ -127,13 +130,19 @@ public class Dept {
     public void searchComputer(Lab[] labs) {
 
         Scanner input = new Scanner(System.in);
-        System.out.printf("%nEnter PC-ID");
+        System.out.printf("%nEnter Lab-Name%nLab-");
+        String inputLabName = "Lab-"+input.nextLine();
+        System.out.println("Enter PC-ID");
         String inputPcID = input.nextLine();
-
         for (int i = 0; i < labs.length; i++) {
 
-            if (labs[i] != null && this.labs[i].searchComputer(labs[i].getComputers(), inputPcID)) {
-                System.out.printf("%nComputer Found in Lab-%d", i);
+            if (
+                    labs[i] != null &&
+                    labs[i].getName().equals(inputLabName) &&
+                    this.labs[i].searchComputer(labs[i].getComputers(),
+                    inputPcID)
+            ) {
+                System.out.println("Computer Found in Lab-"+ i);
             }
         }
         if (labs[0] == null && labs[labs.length - 1] == null) {
