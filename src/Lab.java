@@ -68,7 +68,8 @@ public class Lab {
         System.out.printf(
                 "%nLab-Name: " + this.name +
                 " | Attendant-Name: " + this.attendant.getName() +
-                " | No of Computers: " + this.getComputers().length
+                " | No of Computers: " + this.getComputers().length+
+                " | No of Softwares: " + this.getSoftwares().length
 
         );
     }
@@ -76,7 +77,11 @@ public class Lab {
     public void initializeSoftwares(){
         for (int i =0;i<softwares.length;i++){
             if(softwares[i] == null){
-                softwares[i] = new Software("Adobe", "Utility", "0.03");
+                softwares[i] = new Software(
+                        "Adobe",
+                        "Utility",
+                        "0.03"
+                );
             }
         }
     }
@@ -144,6 +149,35 @@ public class Lab {
 
     }
 
+    public void loadSoftwares() throws FileNotFoundException {
+        File softwareFile =new File("files\\Softwares.dat");
+        Scanner softwareReader = new Scanner(softwareFile);
+
+        int counter = 0;
+        while(softwareReader.hasNextLine() && counter<softwares.length){
+            String softwareLine = softwareReader.nextLine();
+
+            String labID = softwareLine.split(",")[0];
+            String softwareName = softwareLine.split(",")[1];
+            String softwareType = softwareLine.split(",")[2];
+            String softwareModel = softwareLine.split(",")[3];
+
+            if(this.name.equals(labID)) {
+                softwares[counter] = new Software(
+                        softwareName,
+                        softwareType,
+                        softwareModel);
+                counter++;
+            }
+
+
+
+
+        }
+
+
+    }
+
 
     public void printComputers(personalComputer[] computers) { //Prints computer details
         for (personalComputer computer : computers) {
@@ -185,6 +219,29 @@ public class Lab {
 
         }
         cw.close();
+
+
+    }
+
+
+
+    public void saveSoftwares(Software[] softwares) throws IOException {
+        File softwareFile = new File("files\\Softwares.dat");
+        FileWriter sw = new FileWriter(softwareFile, true);
+
+        for (int i=0; i<softwares.length;i++){
+
+            if(softwares[i] != null){
+                sw.write(
+                        this.name+","+
+                                softwares[i].getName()+","+
+                                softwares[i].getType()+","+
+                                softwares[i].getVersion()+"\n"
+                );
+            }
+
+        }
+        sw.close();
 
 
     }

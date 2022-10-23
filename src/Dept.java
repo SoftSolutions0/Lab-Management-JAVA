@@ -156,16 +156,34 @@ public class Dept {
     }
 
 
+    public void printLabSoftwares(Lab[] labs) {
+        Scanner input = new Scanner(System.in);
+        System.out.printf("%nEnter Lab-Name%nLab-");
+        String inputLabName = "Lab-"+input.nextLine();
+
+        for (int i = 0; i < labs.length; i++) {
+
+            if (labs[i] != null && labs[i].getName().equals(inputLabName)) {
+                this.labs[i].printLab();
+                this.labs[i].printSoftwares(labs[i].getSoftwares());
+
+            }
+        }
+        if (labs[0] == null && labs[labs.length - 1] == null) {
+            System.out.println("No Lab Found.");
+        }
+
+
+    }
+
+
     public void loadLabs() throws IOException {
         File LabFile = new File("files\\Labs.dat");
         Scanner labReader = new Scanner(LabFile);
-        File EmployeeFile = new File("files\\Employees.dat");
-        Scanner employeeReader = new Scanner(EmployeeFile);
 
         int counter = 0;
 
         while(labReader.hasNextLine()){
-            boolean validity = true;
             String labLine = labReader.nextLine();
 
 
@@ -173,6 +191,7 @@ public class Dept {
                 String labAttendant = labLine.split(",")[1];
                 String labPcs = labLine.split(",")[2];
                 String labSoftware = labLine.split(",")[3];
+
 
                 Employee emp = new Employee(labAttendant, null, "Attendant");
 
@@ -190,22 +209,31 @@ public class Dept {
                                 Integer.parseInt(labSoftware));
 
                         labs[counter].loadComputers();
+                        labs[counter].loadSoftwares();
                     }
 
                     counter++;
 
         }
+        System.out.println("Data Loaded.");
     }
 
 
     public void saveData(Lab[] labs) throws IOException {
         File labFile = new File("files\\Labs.dat");
         File pcFile = new File("files\\Computers.dat");
+        File softwareFile = new File("files\\Softwares.dat");
 
         FileWriter lw = new FileWriter(labFile);
         FileWriter cw = new FileWriter(pcFile);
+        FileWriter sw = new FileWriter(softwareFile);
+
         cw.write("");
         cw.close();
+
+        sw.write("");
+        sw.close();
+
         for (int i = 0; i < labs.length; i++) {
 
             if (labs[i] != null) {
@@ -216,6 +244,7 @@ public class Dept {
                         this.labs[i].getSoftwares().length+"\n"
                 );
                 this.labs[i].saveComputers(this.labs[i].getComputers());
+                this.labs[i].saveSoftwares(this.labs[i].getSoftwares());
 
             }
         }

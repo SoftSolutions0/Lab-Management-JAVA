@@ -1,20 +1,20 @@
 public class Software {
     private String name;
     private String type;
-    private String model;
+    private String version;
 
 
     public Software(String name, String type, String model) {
         this.name = name;
         this.type = type;
-        this.model = model;
+        this.version = model;
     }
 
 
     public Software(Software s) {
         this.name = s.name;
         this.type = s.type;
-        this.model = s.model;
+        this.version = s.version;
     }
 
 
@@ -34,12 +34,12 @@ public class Software {
         this.type = type;
     }
 
-    public String getModel() {
-        return model;
+    public String getVersion() {
+        return version;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
 
@@ -48,6 +48,9 @@ public class Software {
     }
 
     public void printSoftware(){
-        System.out.println("Software-Name: "+this.name+" | "+"Type: "+this.type+" | "+"Model: "+this.model);
+        System.out.printf(
+                "%nSoftware-Name: "+this.name+
+                " | "+"Type: "+this.type+
+                " | "+"Version: "+this.version);
     }
 }

@@ -1,11 +1,18 @@
+import java.io.File;
 import java.io.IOException;
+import java.security.spec.RSAOtherPrimeInfo;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
-            boolean universalValue = true;
+        //Boolean to check save function
+            boolean universalSave = false;
+            boolean universalLoad = true;
+
+        //Creates input Object
+        Scanner input = new Scanner(System.in);
 
             //Creates Department with "Name","HOD","Labs-inCharge"
             Dept newDept = new Dept(
@@ -15,13 +22,40 @@ public class Main {
                     10
             );
 
-            newDept.loadLabs();
 
-            //Creates input Object
-            Scanner input = new Scanner(System.in);
+        //Prints department details(Name, HOD-name,inCharge-Name, Department-Capacity of Labs)
+//        newDept.printDept();
 
-            //Prints department details(Name, HOD-name,inCharge-Name, Department-Capacity of Labs)
-            newDept.printDept();
+        File labData = new File("files\\Labs.dat");
+        File pcData = new File("files\\Computers.dat");
+        File softwareData = new File("files\\Softwares.dat");
+
+        if(labData.length() >0 && pcData.length()>0 && softwareData.length()>0){
+
+            System.out.printf(
+                    "%n=====" +
+                    "%nData Found in Drive." +
+                    "%nDo you wish to load Data?" +
+                    "%n1-Yes" +
+                    "%n2-No"+
+                    "%n->");
+
+            int userInput = input.nextInt();
+            switch (userInput) {
+                case 1:
+                    newDept.loadLabs();
+                    universalLoad = false;
+                    break;
+
+                case 2:
+                    break;
+
+                default:
+                    System.out.println("Invalid Input");
+            }
+
+        }
+
 
             //Loop for menu options
             while (true) {
@@ -30,10 +64,13 @@ public class Main {
                                 "%nEnter Options" +
                                 "%n1-Create New Lab" +
                                 "%n2-List Labs" +
-                                "%n3-List Computers in Labs" +
-                                "%n4-Search Computer" +
-                                "%n5-Remove Lab" +
-                                "%n6-Exit" +
+                                "%n3-List Computers in Lab" +
+                                "%n4-List Softwares in Lab" +
+                                "%n5-Search Computer" +
+                                "%n6-Remove Lab" +
+                                "%n7-Save Data" +
+                                "%n8-Load Data" +
+                                "%n9-Exit" +
                                 "%n->"
                 );
                 int userInput = input.nextInt();
@@ -42,7 +79,7 @@ public class Main {
                     case 1:
                         //Create New Lab with n No. of Computers
                         newDept.initializeLabs();
-                        universalValue = false;
+                        universalSave = true;
                         break;
                     case 2:
                         //Prints Labs details of the department
@@ -52,19 +89,45 @@ public class Main {
                         //Prints computers within no of labs
                         newDept.printLabComputers(newDept.getLabs());
                         break;
+
                     case 4:
+                        newDept.printLabSoftwares(newDept.getLabs());
+                        break;
+                    case 5:
                         //Searches for computer
                         newDept.searchComputer(newDept.getLabs());
                         break;
-                    case 5:
+                    case 6:
                         //Removes Lab
                         newDept.removeLab(newDept.getLabs());
-                        universalValue = false;
+                        universalSave = true;
                         break;
 
-                    case 6:
+                    case 7:
+                        //Save Data
+                        if(universalSave){
+                            newDept.saveData(newDept.getLabs());
+                            universalSave = false;
+                            universalLoad = true;
+                        } else {
+                            System.out.println("No Changes to Save.");
+                        }
+                        break;
+
+                    case 8:
+                        //Load Data
+                        if(universalLoad){
+                            newDept.loadLabs();
+                            universalLoad = false;
+                        } else {
+                            System.out.println("Data Already Loaded");
+                        }
+                        break;
+
+
+                    case 9:
                         //Saves || Exits
-                        if (!universalValue) {
+                        if (universalSave) {
                             System.out.printf("%nWould you like to save changes?%n1-Yes%n2-No%n->");
                             int saveValue = input.nextInt();
                             switch (saveValue) {
