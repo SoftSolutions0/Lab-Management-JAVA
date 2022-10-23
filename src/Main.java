@@ -60,20 +60,21 @@ public class Main {
 
             //Loop for menu options
             while (true) {
-                System.out.printf(
-                        "%n=======" +
-                                "%nEnter Options" +
-                                "%n1-Create New Lab" +
-                                "%n2-List Labs" +
-                                "%n3-List Computers in Lab" +
-                                "%n4-List Softwares in Lab" +
-                                "%n5-Search Computer" +
-                                "%n6-Remove Lab" +
-                                "%n7-Save Data" +
-                                "%n8-Load Data" +
-                                "%n9-Exit" +
-                                "%n->"
+//
+                System.out.println(
+                        """
+                                            
+                                            ============
+                                            Enter Options
+                        1-Create New Lab                       2-List Labs
+                        5-Search Computer                      3-List Computers in Lab
+                        6-Remove Lab                           4-List Softwares in Lab
+                        7-Save Data                            8-Load Data
+                        
+                                               0-Exit
+                        """
                 );
+                System.out.print("->");
                 int userInput = input.nextInt();
 
                 switch (userInput) {
@@ -126,7 +127,7 @@ public class Main {
                         break;
 
 
-                    case 9:
+                    case 0:
                         //Saves || Exits
                         if (universalSave) {
                             System.out.printf("%nWould you like to save changes?%n1-Yes%n2-No%n->");
